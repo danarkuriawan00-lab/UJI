@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBT Mobile - 1 Halaman 1 Soal</title>
+    <style>
+        /* --- BASE STYLE (Optimasi Layar HP) --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #f5f7f8;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 16px;
+        }
+
+        /* --- HEADER NAVIGATION BAR --- */
+        .cbt-header {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .nomor-soal {
+            font-weight: bold;
+            font-size: 16px;
+            color: #2c3e50;
+        }
+
+        /* --- CONTAINER UTAMA SOAL --- */
+        .cbt-container {
+            width: 100%;
+            max-width: 480px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 16px;
+            margin-bottom: 16px;
+            flex-grow: 1;
+        }
+
+        /* --- WADAH GAMBAR ILUSTRASI --- */
+        .ilustrasi-box {
+            width: 100%;
+            background-color: #CCEBDA; /* Hijau pastel sesuai request */
+            border-radius: 28px;
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .ilustrasi-box img {
+            width: 100%;
+            max-height: 240px;
+            object-fit: contain;
+            border-radius: 16px;
+        }
+
+        /* --- TEKS SOAL --- */
+        .soal-text {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* --- TIPE 1: PILIHAN GANDA (PG) --- */
+        .opsi-pg {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .opsi-item {
+            display: flex;
+            align-items: center;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .opsi-item input[type="radio"] {
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+            accent-color: #2ecc71;
+        }
+
+        /* --- TIPE 2: PERNYATAAN SESUAI/TIDAK --- */
+        .tabel-pernyataan {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tabel-pernyataan th {
+            background-color: #f8fafc;
+            padding: 10px;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #64748b;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .tabel-pernyataan td {
+            padding: 14px 6px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .cell-cek {
+            text-align: center;
+            width: 65px;
+        }
+
+        .cell-cek input[type="radio"] {
+            width: 22px;
+            height: 22px;
+            accent-color: #3498db;
+        }
+
+        /* --- FOOTER TOMBOL NAVIGASI --- */
+        .cbt-footer {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-prev {
+            background-color: #cbd5e1;
+            color: #334155;
+        }
+
+        .btn-next {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-nav:disabled {
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        /* Utility class untuk sembunyikan halaman */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cbt-header">
+        <div class="nomor-soal" id="info-nomor">SOAL 1 dari 2</div>
+        <div style="font-size: 14px; color: #7f8c8d;">⏱️ Sisa Waktu: 59:00</div>
+    </div>
+
+    <div id="halaman-soal-1" class="cbt-container">
+        <div class="ilustrasi-box">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjeFuZkCotFkHpqP0bdDCzHfxcee5XoVLCtADjX-0VAHUhuoF-qNwELSvAEONj04ofwEcmw9-gHcvF91HCt2ktyRrDeaiVd_8ecHyU-yWmPcoLzIRxZpoy1_1_wXZpl7cnweqGoWjEeSLWjgtDJIVGqSmQ1UeE3pf2JdQKFSRauce7qa4gPe4qeOwxB2Kqo/s16000/Gemini_Generated_Image_z4bwewz4bwewz4bw.png" alt="Ilustrasi Soal 1">
+        </div>
+        <div class="soal-text">
+            [Soal Tipe Pilihan Ganda]<br> 
+            Berdasarkan gambar di atas, manakah kesimpulan yang paling tepat mengenai interaksi objek tersebut?
+        </div>
+        <div class="opsi-pg">
+            <label class="opsi-item">
+                <input type="radio" name="jawaban_soal1" value="A">
+                <span>A. Pilihan Jawaban Kunci A</span>
+            </label>
+            <label class="opsi-item">
+                <input type="radio" name="jawaban_soal1" value="B">
+                <span>B. Pilihan Jawaban Kunci B</span>
+            </label>
+            <label class="opsi-item">
+                <input type="radio" name="jawaban_soal1" value="C">
+                <span>C. Pilihan Jawaban Kunci C</span>
+            </label>
+        </div>
+    </div>
+
+    <div id="halaman-soal-2" class="cbt-container hidden">
+        <div class="ilustrasi-box">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjeFuZkCotFkHpqP0bdDCzHfxcee5XoVLCtADjX-0VAHUhuoF-qNwELSvAEONj04ofwEcmw9-gHcvF91HCt2ktyRrDeaiVd_8ecHyU-yWmPcoLzIRxZpoy1_1_wXZpl7cnweqGoWjEeSLWjgtDJIVGqSmQ1UeE3pf2JdQKFSRauce7qa4gPe4qeOwxB2Kqo/s16000/Gemini_Generated_Image_z4bwewz4bwewz4bw.png" alt="Ilustrasi Soal 2">
+        </div>
+        <div class="soal-text">
+            [Soal Tipe Pernyataan]<br>
+            Cermati kembali ilustrasi di atas. Tentukan apakah pernyataan berikut Sesuai atau Tidak Sesuai!
+        </div>
+        <table class="tabel-pernyataan">
+            <thead>
+                <tr>
+                    <th>Pernyataan tentang Gambar</th>
+                    <th>Sesuai</th>
+                    <th>Tidak</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1. Gambar tersebut beresolusi tinggi dan memiliki latar belakang hijau pastel.</td>
+                    <td class="cell-cek"><input type="radio" name="soal2_p1" value="sesuai"></td>
+                    <td class="cell-cek"><input type="radio" name="soal2_p1" value="tidak"></td>
+                </tr>
+                <tr>
+                    <td>2. Tidak ada keterkaitan visual antara gambar dan teks deskripsi.</td>
+                    <td class="cell-cek"><input type="radio" name="soal2_p2" value="sesuai"></td>
+                    <td class="cell-cek"><input type="radio" name="soal2_p2" value="tidak"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="cbt-footer">
+        <button id="btn-kembali" class="btn-nav btn-prev" onclick="pindahHalaman(-1)" disabled>Kembali</button>
+        <button id="btn-lanjut" class="btn-nav btn-next" onclick="pindahHalaman(1)">Lanjut</button>
+    </div>
+
+    <script>
+        let halamanSekarang = 1;
+        const totalHalaman = 2;
+
+        function pindahHalaman(arah) {
+            // Sembunyikan halaman saat ini
+            document.getElementById(`halaman-soal-${halamanSekarang}`).classList.add('hidden');
+            
+            // Hitung halaman baru
+            halamanSekarang += arah;
+            
+            // Tampilkan halaman baru
+            document.getElementById(`halaman-soal-${halamanSekarang}`).classList.remove('hidden');
+
+            // Update Teks Informasi Nomor di Atas
+            document.getElementById('info-nomor').innerText = `SOAL ${halamanSekarang} dari ${totalHalaman}`;
+
+            // Atur status aktif/nonaktif tombol navigasi
+            document.getElementById('btn-kembali').disabled = (halamanSekarang === 1);
+            
+            if (halamanSekarang === totalHalaman) {
+                document.getElementById('btn-lanjut').innerText = 'Selesai';
+                document.getElementById('btn-lanjut').style.backgroundColor = '#2ecc71'; // Berubah hijau saat soal terakhir
+            } else {
+                document.getElementById('btn-lanjut').innerText = 'Lanjut';
+                document.getElementById('btn-lanjut').style.backgroundColor = '#3498db';
+            }
+        }
+    </script>
+</body>
+</html>
