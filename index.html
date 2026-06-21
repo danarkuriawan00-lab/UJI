@@ -18,7 +18,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 16px;
+            padding: 24px;
             position: relative;
             overflow-x: hidden;
             color: #2d3748;
@@ -28,9 +28,8 @@
             content: '';
             position: absolute;
             border-radius: 50%;
-            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.15), transparent);
             z-index: 1;
-            pointer-events: none;
         }
         body::before { width: 400px; height: 400px; top: -10%; left: -10%; }
         body::after { width: 300px; height: 300px; bottom: -5%; right: -5%; }
@@ -42,316 +41,68 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             width: 100%;
             max-width: 480px;
-            padding: 35px 30px;
+            padding: 40px 35px;
             z-index: 2;
             border: 1px solid rgba(255, 255, 255, 0.2);
             display: block;
-            transition: all 0.3s ease;
         }
 
         .cbt-header {
             text-align: center;
-            margin-bottom: 28px;
+            margin-bottom: 32px;
         }
 
-        .cbt-header .subtitle-top { 
-            font-size: 14px; 
-            text-transform: uppercase; 
-            letter-spacing: 3px; 
-            color: #4a5568; 
-            font-weight: 600; 
-        }
-        .cbt-header .title-main { 
-            font-size: 36px; 
-            font-weight: 900; 
-            background: linear-gradient(135deg, #f12711 0%, #f5af19 100%); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            letter-spacing: 2px; 
-            margin: 4px 0; 
-        }
-        .cbt-header .school-name { 
-            font-size: 20px; 
-            font-weight: 800; 
-            color: #1e3c72; 
-        }
-        .cbt-header .region-name { 
-            font-size: 13px; 
-            font-weight: 700; 
-            color: #718096; 
-            letter-spacing: 4px; 
-            text-transform: uppercase; 
-            border-bottom: 2px solid #f5af19; 
-            display: inline-block; 
-            padding-bottom: 8px; 
-            width: 80%; 
-            margin-bottom: 12px;
-        }
-        .cbt-header .instruction { 
-            font-size: 13px; 
-            color: #4a5568; 
-            line-height: 1.5;
-        }
+        .cbt-header .subtitle-top { font-size: 16px; text-transform: uppercase; letter-spacing: 3px; color: #555; font-weight: 600; }
+        .cbt-header .title-main { font-size: 38px; font-weight: 900; background: linear-gradient(135deg, #f12711 0%, #f5af19 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; margin: 4px 0; }
+        .cbt-header .school-name { font-size: 20px; font-weight: 800; color: #1e3c72; }
+        .cbt-header .region-name { font-size: 13px; font-weight: 700; color: #777; letter-spacing: 4px; text-transform: uppercase; border-bottom: 2px solid #f5af19; display: inline-block; padding-bottom: 8px; width: 80%; }
+        .cbt-header .instruction { font-size: 13px; color: #666; margin-top: 15px; }
 
-        .form-group { margin-bottom: 20px; }
-        .form-group label { 
-            display: block; 
-            margin-bottom: 8px; 
-            color: #2d3748; 
-            font-weight: 700; 
-            font-size: 12px; 
-            text-transform: uppercase; 
-            letter-spacing: 0.5px;
-        }
-        .form-control { 
-            width: 100%; 
-            padding: 12px 16px; 
-            border: 2px solid #e2e8f0; 
-            border-radius: 10px; 
-            font-size: 15px; 
-            background-color: #f8fafc; 
-            transition: all 0.3s; 
-            color: #2d3748;
-        }
-        .form-control:focus { 
-            outline: none; 
-            border-color: #2a5298; 
-            background-color: #ffffff; 
-            box-shadow: 0 0 0 4px rgba(42, 82, 152, 0.15); 
-        }
+        .form-group { margin-bottom: 22px; }
+        .form-group label { display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 700; font-size: 13px; text-transform: uppercase; }
+        .form-control { width: 100%; padding: 14px 16px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 15px; background-color: #f8fafc; transition: all 0.3s; }
+        .form-control:focus { outline: none; border-color: #2a5298; background-color: #ffffff; box-shadow: 0 0 0 4px rgba(42, 82, 152, 0.15); }
 
         select.form-control {
             appearance: none;
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2.5'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat; 
-            background-position: right 16px center; 
-            background-size: 14px;
-            padding-right: 40px;
+            background-repeat: no-repeat; background-position: right 16px center; background-size: 14px;
         }
 
-        .btn-mulai, .btn-submit { 
-            width: 100%; 
-            padding: 14px; 
-            border: none; 
-            border-radius: 10px; 
-            color: white; 
-            font-size: 15px; 
-            font-weight: 700; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            cursor: pointer; 
-            transition: all 0.3s; 
-        }
-        .btn-mulai { 
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); 
-            box-shadow: 0 4px 12px rgba(42, 82, 152, 0.3); 
-        }
-        .btn-mulai:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 6px 15px rgba(42, 82, 152, 0.4);
-        }
-        .btn-mulai:active {
-            transform: translateY(0);
-        }
+        .btn-mulai, .btn-submit { width: 100%; padding: 16px; border: none; border-radius: 10px; color: white; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s; }
+        .btn-mulai { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); box-shadow: 0 4px 12px rgba(42, 82, 152, 0.3); }
+        .btn-mulai:hover { transform: translateY(-2px); }
 
         /* SOAL CONTAINER */
-        .soal-container { 
-            max-width: 850px; 
-            width: 100%; 
-            background-color: #ffffff; 
-            padding: 35px; 
-            border-radius: 20px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25); 
-            z-index: 2; 
-            display: none; 
-            animation: fadeIn 0.5s ease-in-out; 
-        }
-        @keyframes fadeIn { 
-            from { opacity: 0; transform: translateY(20px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
+        .soal-container { max-width: 850px; width: 100%; background-color: #ffffff; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 2; display: none; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .soal-container h1 { 
-            color: #1a365d; 
-            text-align: center; 
-            border-bottom: 3px solid #2b6cb0; 
-            padding-bottom: 15px; 
-            margin-bottom: 30px; 
-            font-size: 24px; 
-            line-height: 1.4;
-        }
-        .soal-container h2 { 
-            color: #2b6cb0; 
-            font-size: 16px; 
-            margin-top: 35px; 
-            border-left: 5px solid #2b6cb0; 
-            padding-left: 12px; 
-            margin-bottom: 15px; 
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .instruction { 
-            font-style: italic; 
-            color: #4a5568; 
-            margin-bottom: 20px; 
-            background-color: #edf2f7; 
-            padding: 12px 15px; 
-            border-radius: 8px; 
-            font-size: 14px;
-        }
+        .soal-container h1 { color: #1a365d; text-align: center; border-bottom: 3px solid #2b6cb0; padding-bottom: 15px; margin-bottom: 30px; font-size: 22pt; }
+        .soal-container h2 { color: #2b6cb0; font-size: 14pt; margin-top: 40px; border-left: 5px solid #2b6cb0; padding-left: 12px; margin-bottom: 15px; }
+        .instruction { font-style: italic; color: #4a5568; margin-bottom: 20px; background-color: #edf2f7; padding: 12px 15px; border-radius: 6px; }
         
-        .table-responsive {
-            overflow-x: auto;
-            margin-bottom: 25px;
-            border-radius: 8px;
-            border: 1px solid #cbd5e0;
-        }
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            min-width: 500px;
-        }
-        th, td { 
-            border: 1px solid #e2e8f0; 
-            padding: 14px; 
-            text-align: left; 
-            font-size: 15px;
-        }
-        th { 
-            background-color: #ebf8ff; 
-            color: #2b6cb0; 
-            font-weight: 700;
-        }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
+        th, td { border: 1px solid #cbd5e0; padding: 14px; text-align: left; }
+        th { background-color: #ebf8ff; color: #2b6cb0; }
         
-        .question-block { 
-            margin-bottom: 30px; 
-            padding-bottom: 20px; 
-            border-bottom: 1px dashed #e2e8f0; 
-        }
-        .question-block p {
-            font-size: 16px;
-            font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-        .option-item { 
-            margin: 10px 0; 
-            padding: 12px 16px; 
-            border: 1px solid #e2e8f0; 
-            border-radius: 10px; 
-            background-color: #f8fafc; 
-            transition: all 0.2s; 
-        }
-        .option-item:hover { 
-            background-color: #ebf8ff; 
-            border-color: #bee3f8;
-        }
-        .option-item label { 
-            cursor: pointer; 
-            display: flex; 
-            align-items: center; 
-            width: 100%; 
-            font-size: 15px; 
-            font-weight: 500;
-            color: #4a5568;
-        }
-        input[type="radio"], input[type="checkbox"] { 
-            margin-right: 14px; 
-            transform: scale(1.2); 
-            cursor: pointer;
-        }
-        .soal-container select { 
-            padding: 10px; 
-            border-radius: 8px; 
-            border: 2px solid #cbd5e0; 
-            width: 100%; 
-            background-color: #fff; 
-            font-size: 14px;
-            outline: none;
-            transition: all 0.2s;
-        }
-        .soal-container select:focus {
-            border-color: #2b6cb0;
-        }
+        .question-block { margin-bottom: 35px; padding-bottom: 25px; border-bottom: 1px dashed #cbd5e0; }
+        .option-item { margin: 12px 0; padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 8px; background-color: #f8fafc; transition: all 0.2s; }
+        .option-item:hover { background-color: #ebf8ff; }
+        label { cursor: pointer; display: flex; align-items: center; width: 100%; font-size: 11.5pt; }
+        input[type="radio"], input[type="checkbox"] { margin-right: 12px; transform: scale(1.25); }
+        .soal-container select { padding: 10px; border-radius: 6px; border: 1px solid #cbd5e0; width: 100%; background-color: #fff; }
         
-        .btn-submit { 
-            background: linear-gradient(135deg, #2b6cb0 0%, #1a365d 100%); 
-            box-shadow: 0 4px 12px rgba(43, 108, 176, 0.3); 
-            margin-top: 30px; 
-        }
-        .btn-submit:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(43, 108, 176, 0.4);
-        }
-        .btn-submit:disabled { 
-            background: #cbd5e0; 
-            cursor: not-allowed; 
-            box-shadow: none; 
-        }
+        .btn-submit { background: linear-gradient(135deg, #2b6cb0 0%, #1a365d 100%); box-shadow: 0 4px 12px rgba(43, 108, 176, 0.3); margin-top: 40px; }
+        .btn-submit:disabled { background: #cbd5e0; cursor: not-allowed; box-shadow: none; }
 
-        /* SCORE BANNER & ALERTS */
-        .score-box { 
-            display: none; 
-            text-align: center; 
-            background: #f0fff4; 
-            border: 2px solid #38a169; 
-            padding: 30px; 
-            border-radius: 16px; 
-            margin-bottom: 30px; 
-            animation: fadeIn 0.5s; 
-        }
-        .score-box h3 { 
-            color: #276749; 
-            font-size: 22px; 
-            margin-bottom: 10px; 
-        }
-        .score-box .num { 
-            font-size: 64px; 
-            font-weight: 900; 
-            color: #38a169; 
-            margin: 15px 0;
-        }
-
-        /* Custom Alert Notification Box */
-        .notification-box {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 16px 24px;
-            border-radius: 10px;
-            color: white;
-            font-weight: 600;
-            z-index: 9999;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            display: none;
-            animation: slideIn 0.3s ease-out;
-            max-width: 320px;
-        }
-        @keyframes slideIn {
-            from { transform: translateX(120%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        .notification-success {
-            background-color: #38a169;
-            border-left: 5px solid #276749;
-        }
-        .notification-error {
-            background-color: #e53e3e;
-            border-left: 5px solid #9b2c2c;
-        }
-        .notification-info {
-            background-color: #3182ce;
-            border-left: 5px solid #2b6cb0;
-        }
+        /* SCORE BANNER */
+        .score-box { display: none; text-align: center; background: #f0fff4; border: 2px solid #38a169; padding: 30px; border-radius: 12px; margin-bottom: 30px; animation: fadeIn 0.5s; }
+        .score-box h3 { color: #276749; font-size: 20pt; margin-bottom: 10px; }
+        .score-box .num { font-size: 48pt; font-weight: 900; color: #38a169; }
     </style>
 </head>
 <body>
 
-<!-- Notification Element (Sesuai Aturan: No Browser Alert) -->
-<div id="notification" class="notification-box"></div>
-
-<!-- LOGIN PAGE -->
 <div class="cbt-container" id="loginPage">
     <div class="cbt-header">
         <div class="subtitle-top">Selamat Datang</div>
@@ -362,51 +113,31 @@
     </div>
 
     <form onsubmit="mulaiUjian(event)">
-        <div class="form-group">
-            <label for="nama">Nama Lengkap</label>
-            <input type="text" id="nama" class="form-control" placeholder="Masukkan nama lengkap" required autocomplete="off">
-        </div>
-        <div class="form-group">
-            <label for="kelas">Kelas</label>
-            <select id="kelas" class="form-control" required>
-                <option value="" disabled selected>Pilih kelas</option>
-                <option value="6A">6A</option>
-                <option value="6B">6B</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="absen">No. Absen</label>
-            <input type="number" id="absen" class="form-control" placeholder="Contoh: 05" min="1" max="50" required>
-        </div>
-        <div class="form-group">
-            <label for="mapel">Mata Pelajaran</label>
-            <select id="mapel" class="form-control" required>
-                <option value="" disabled selected>Pilih mata pelajaran</option>
-                <option value="Pendidikan Pancasila">Pendidikan Pancasila</option>
-                <option value="Bahasa Indonesia">Bahasa Indonesia</option>
-                <option value="Matematika">Matematika</option>
-                <option value="Ilmu Pengetahuan Alam dan Sosial (IPAS)">Ilmu Pengetahuan Alam dan Sosial (IPAS)</option>
-                <option value="Pendidikan Agama dan Budi Pekerti">Pendidikan Agama dan Budi Pekerti</option>
-                <option value="Pendidikan Jasmani, Olahraga, dan Kesehatan (PJOK)">Pendidikan Jasmani, Olahraga, dan Kesehatan (PJOK)</option>
-                <option value="Seni dan Budaya">Seni dan Budaya</option>
-                <option value="Bahasa Inggris">Bahasa Inggris</option>
-                <option value="Bahasa Jawa">Bahasa Jawa</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="bab">Bab / Materi Ujian</label>
-            <input type="text" id="bab" class="form-control" placeholder="Ketik nama bab" required autocomplete="off">
-        </div>
+        <div class="form-group"><label>Nama Lengkap</label><input type="text" id="nama" class="form-control" placeholder="Masukkan nama lengkap" required></div>
+        <div class="form-group"><label>Kelas</label><select id="kelas" class="form-control" required><option value="" disabled selected>Pilih kelas</option><option value="6A">6A</option><option value="6B">6B</option></select></div>
+        <div class="form-group"><label>No. Absen</label><input type="number" id="absen" class="form-control" placeholder="Contoh: 05" min="1" max="50" required></div>
+        <div class="form-group"><label>Mata Pelajaran</label><select id="mapel" class="form-control" required>
+            <option value="" disabled selected>Pilih mata pelajaran</option>
+            <option value="Pendidikan Pancasila">Pendidikan Pancasila</option>
+            <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+            <option value="Matematika">Matematika</option>
+            <option value="Ilmu Pengetahuan Alam dan Sosial (IPAS)">Ilmu Pengetahuan Alam dan Sosial (IPAS)</option>
+            <option value="Pendidikan Agama dan Budi Pekerti">Pendidikan Agama dan Budi Pekerti</option>
+            <option value="Pendidikan Jasmani, Olahraga, dan Kesehatan (PJOK)">Pendidikan Jasmani, Olahraga, dan Kesehatan (PJOK)</option>
+            <option value="Seni dan Budaya">Seni dan Budaya</option>
+            <option value="Bahasa Inggris">Bahasa Inggris</option>
+            <option value="Bahasa Jawa">Bahasa Jawa</option>
+        </select></div>
+        <div class="form-group"><label>Bab / Materi Ujian</label><input type="text" id="bab" class="form-control" placeholder="Ketik nama bab" required></div>
         <button type="submit" class="btn-mulai">Mulai Ujian</button>
     </form>
 </div>
 
-<!-- SOAL PAGE -->
 <div class="soal-container" id="soalPage">
     <div class="score-box" id="scoreBox">
         <h3>Ujian Selesai! Nilai Anda:</h3>
         <div class="num" id="scoreNum">0</div>
-        <p style="color: #4a5568; margin-top: 10px; font-weight: 500;">Jawaban Anda telah berhasil diproses oleh sistem rekapitulasi.</p>
+        <p style="color: #4a5568; margin-top: 10px;">Jawaban Anda telah berhasil disimpan ke sistem rekapitulasi.</p>
     </div>
 
     <h1 id="judulSoalDinamis">Ujian CBT</h1>
@@ -414,108 +145,32 @@
     <form id="cbtForm" onsubmit="kirimJawaban(event)">
         <h2>Bagian 1: Soal Menjodohkan (Matching)</h2>
         <div class="instruction">Petunjuk: Pasangkan lajur kiri dengan opsi lajur kanan yang tepat!</div>
-        
-        <div class="table-responsive">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Lajur Kiri (Penjelasan)</th>
-                        <th>Pilihan Jawaban (Lajur Kanan)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1. Hormon utama yang memicu perkembangan reproduksi pada laki-laki.</td>
-                        <td>
-                            <select name="match1" required>
-                                <option value="">-- Pilih --</option>
-                                <option value="A">A. Estrogen</option>
-                                <option value="B">B. Primer</option>
-                                <option value="C">C. Sekunder Laki-laki</option>
-                                <option value="D">D. Testosteron</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2. Perubahan organ reproduksi yang tidak terlihat langsung dari luar.</td>
-                        <td>
-                            <select name="match2" required>
-                                <option value="">-- Pilih --</option>
-                                <option value="A">A. Estrogen</option>
-                                <option value="B">B. Primer</option>
-                                <option value="C">C. Sekunder Laki-laki</option>
-                                <option value="D">D. Testosteron</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3. Jakun membesar dan suara menjadi lebih berat/dalam.</td>
-                        <td>
-                            <select name="match3" required>
-                                <option value="">-- Pilih --</option>
-                                <option value="A">A. Estrogen</option>
-                                <option value="B">B. Primer</option>
-                                <option value="C">C. Sekunder Laki-laki</option>
-                                <option value="D">D. Testosteron</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4. Hormon utama yang memicu perkembangan reproduksi pada perempuan.</td>
-                        <td>
-                            <select name="match4" required>
-                                <option value="">-- Pilih --</option>
-                                <option value="A">A. Estrogen</option>
-                                <option value="B">B. Primer</option>
-                                <option value="C">C. Sekunder Laki-laki</option>
-                                <option value="D">D. Testosteron</option>
-                            </select>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table>
+            <thead><tr><th>Lajur Kiri (Penjelasan)</th><th>Pilihan Jawaban (Lajur Kanan)</th></tr></thead>
+            <tbody>
+                <tr><td>1. Hormon utama yang memicu perkembangan reproduksi pada laki-laki.</td><td><select name="match1" required><option value="">-- Pilih --</option><option value="A">A. Estrogen</option><option value="B">B. Primer</option><option value="C">C. Sekunder Laki-laki</option><option value="D">D. Testosteron</option></select></td></tr>
+                <tr><td>2. Perubahan organ reproduksi yang tidak terlihat langsung dari luar.</td><td><select name="match2" required><option value="">-- Pilih --</option><option value="A">A. Estrogen</option><option value="B">B. Primer</option><option value="C">C. Sekunder Laki-laki</option><option value="D">D. Testosteron</option></select></td></tr>
+                <tr><td>3. Jakun membesar dan suara menjadi lebih berat/dalam.</td><td><select name="match3" required><option value="">-- Pilih --</option><option value="A">A. Estrogen</option><option value="B">B. Primer</option><option value="C">C. Sekunder Laki-laki</option><option value="D">D. Testosteron</option></select></td></tr>
+                <tr><td>4. Hormon utama yang memicu perkembangan reproduksi pada perempuan.</td><td><select name="match4" required><option value="">-- Pilih --</option><option value="A">A. Estrogen</option><option value="B">B. Primer</option><option value="C">C. Sekunder Laki-laki</option><option value="D">D. Testosteron</option></select></td></tr>
+            </tbody>
+        </table>
 
         <h2>Bagian 2: Soal Pilihan Ganda Kompleks</h2>
         <div class="instruction">Petunjuk: Centang semua jawaban yang benar (bisa lebih dari satu)!</div>
         <div class="question-block">
             <p><strong>5. Manakah ciri fisik sekunder anak laki-laki saat pubertas? (Pilih 2 jawaban benar)</strong></p>
-            <div class="option-item">
-                <label>
-                    <input type="checkbox" name="q5" value="A" onchange="validateCheckboxes()"> Pinggul melebar
-                </label>
-            </div>
-            <div class="option-item">
-                <label>
-                    <input type="checkbox" name="q5" value="B" onchange="validateCheckboxes()"> Tumbuh jakun di leher
-                </label>
-            </div>
-            <div class="option-item">
-                <label>
-                    <input type="checkbox" name="q5" value="C" onchange="validateCheckboxes()"> Dada menjadi lebih bidang
-                </label>
-            </div>
+            <div class="option-item"><label><input type="checkbox" name="q5" value="A"> Pinggul melebar</label></div>
+            <div class="option-item"><label><input type="checkbox" name="q5" value="B"> Tumbuh jakun di leher</label></div>
+            <div class="option-item"><label><input type="checkbox" name="q5" value="C"> Dada menjadi lebih bidang</label></div>
         </div>
 
         <h2>Bagian 3: Soal Pilihan Ganda Biasa</h2>
         <div class="instruction">Petunjuk: Pilihlah satu jawaban yang paling tepat!</div>
         <div class="question-block">
             <p><strong>6. Masa peralihan dari anak-anak menuju dewasa disebut masa...</strong></p>
-            <div class="option-item">
-                <label>
-                    <input type="radio" name="q6" value="A" required> A. Balita
-                </label>
-            </div>
-            <div class="option-item">
-                <label>
-                    <input type="radio" name="q6" value="B"> B. Lansia
-                </label>
-            </div>
-            <div class="option-item">
-                <label>
-                    <input type="radio" name="q6" value="C"> C. Pubertas
-                </label>
-            </div>
+            <div class="option-item"><label><input type="radio" name="q6" value="A" required> A. Balita</label></div>
+            <div class="option-item"><label><input type="radio" name="q6" value="B"> B. Lansia</label></div>
+            <div class="option-item"><label><input type="radio" name="q6" value="C"> C. Pubertas</label></div>
         </div>
 
         <button type="submit" class="btn-submit" id="btnKirim">Kirim Jawaban</button>
@@ -523,70 +178,32 @@
 </div>
 
 <script>
-    // URL Google Apps Script Web App
+    // Taruh URL Google Apps Script Web App Anda di bawah ini
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz-lDH8EMAc0FXs8qPVbst4zzjkduRv9FU-htxr4F8q3Nz1z8jbmvhJ49rSb5tSXzQb/exec";
 
     let siswaData = {};
 
-    // Custom Alert/Notification Function (Mencegah alert default)
-    function showNotification(message, type = 'info') {
-        const notif = document.getElementById('notification');
-        notif.innerText = message;
-        notif.className = 'notification-box'; // reset
-        
-        if (type === 'success') {
-            notif.classList.add('notification-success');
-        } else if (type === 'error') {
-            notif.classList.add('notification-error');
-        } else {
-            notif.classList.add('notification-info');
-        }
-        
-        notif.style.display = 'block';
-        
-        setTimeout(() => {
-            notif.style.opacity = '1';
-        }, 10);
-
-        setTimeout(() => {
-            notif.style.display = 'none';
-        }, 4500);
-    }
-
-    // Membantu validasi minimal pengisian checkbox di bagian 2
-    function validateCheckboxes() {
-        const checkboxes = document.getElementsByName('q5');
-        let checkedCount = 0;
-        for (let i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].checked) {
-                checkedCount++;
-            }
-        }
-        return checkedCount;
-    }
-
     function mulaiUjian(event) {
         event.preventDefault();
         siswaData = {
-            nama: document.getElementById('nama').value.trim(),
+            nama: document.getElementById('nama').value,
             kelas: document.getElementById('kelas').value,
             mapel: document.getElementById('mapel').value,
-            bab: document.getElementById('bab').value.trim(),
+            bab: document.getElementById('bab').value,
             absen: document.getElementById('absen').value
         };
         
-        document.getElementById('judulSoalDinamis').innerHTML = `Ujian CBT ${siswaData.mapel}<br><span style="font-size: 16px; color: #4a5568;">Materi: ${siswaData.bab}</span>`;
+        document.getElementById('judulSoalDinamis').innerHTML = `Ujian CBT ${siswaData.mapel}<br>Materi: ${siswaData.bab}`;
         document.getElementById('loginPage').style.display = 'none';
         document.getElementById('soalPage').style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        showNotification('Selamat mengerjakan! Bacalah petunjuk soal dengan seksama.', 'info');
+        window.scrollTo(0, 0);
     }
 
     function hitungNilai() {
         let skor = 0;
         const totalSoal = 6; // Jumlah poin komponen penilaian
 
-        // Kunci Jawaban Bagian 1
+        // Kunci Jawaban
         if(document.getElementsByName('match1')[0].value === "D") skor++;
         if(document.getElementsByName('match2')[0].value === "B") skor++;
         if(document.getElementsByName('match3')[0].value === "C") skor++;
@@ -594,15 +211,11 @@
 
         // Cek Pilihan Ganda Kompleks (Soal 5: B & C Benar, A Salah)
         const q5Options = document.getElementsByName('q5');
-        if(!q5Options[0].checked && q5Options[1].checked && q5Options[2].checked) {
-            skor++;
-        }
+        if(!q5Options[0].checked && q5Options[1].checked && q5Options[2].checked) skor++;
 
         // Cek Pilihan Ganda Biasa (Soal 6: C Benar)
         const q6Options = document.getElementsByName('q6');
-        if(q6Options[2].checked) {
-            skor++;
-        }
+        if(q6Options[2].checked) skor++;
 
         // Konversi ke skala nilai 100
         return Math.round((skor / totalSoal) * 100);
@@ -610,17 +223,9 @@
 
     function kirimJawaban(event) {
         event.preventDefault();
-
-        // Validasi opsional tambahan sebelum mengirim
-        const checkedCount = validateCheckboxes();
-        if (checkedCount === 0) {
-            showNotification('Mohon pilih minimal satu jawaban pada Soal Nomor 5!', 'error');
-            return;
-        }
-
         const btn = document.getElementById('btnKirim');
         btn.disabled = true;
-        btn.innerHTML = "Mengirim data...";
+        btn.innerHTML = "Mengirim...";
 
         const nilaiAkhir = hitungNilai();
         siswaData.nilai = nilaiAkhir;
@@ -628,7 +233,7 @@
         // Tampilkan nilai langsung ke layar siswa
         document.getElementById('scoreNum').innerText = nilaiAkhir;
         document.getElementById('scoreBox').style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo(0,0);
 
         // Kirim data ke Google Sheets menggunakan API fetch (POST)
         fetch(WEB_APP_URL, {
@@ -638,23 +243,14 @@
             body: JSON.stringify(siswaData)
         })
         .then(() => {
-            showNotification('Sukses! Jawaban Anda telah direkam di spreadsheet kelas.', 'success');
+            alert('Sukses! Jawaban Anda telah direkam di spreadsheet kelas.');
             btn.innerHTML = "Selesai Terkirim";
-            disableAllInputs();
         })
         .catch(err => {
-            showNotification('Gagal mengirim otomatis, silakan laporkan ke pengawas.', 'error');
+            alert('Gagal mengirim ke spreadsheet otomatis, silakan hubungi pengawas.');
             console.error(err);
             btn.disabled = false;
             btn.innerHTML = "Kirim Ulang";
-        });
-    }
-
-    function disableAllInputs() {
-        // Mengunci seluruh input setelah sukses dikirim
-        const inputs = document.querySelectorAll('#cbtForm input, #cbtForm select');
-        inputs.forEach(input => {
-            input.disabled = true;
         });
     }
 </script>
