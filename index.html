@@ -1,259 +1,692 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CBT SDN Gondang 1 Sragen</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome untuk Icon Elemen -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        school: {
+                            deep: '#1e3c72',
+                            bright: '#2a5298',
+                            gold: '#f5af19',
+                            goldHover: '#e09a07',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-
-        body {
-            background: radial-gradient(circle at top left, #1e3c72 0%, #2a5298 50%, #1a2a6c 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 24px;
-            position: relative;
-            overflow-x: hidden;
-            color: #2d3748;
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
         }
-
-        body::before, body::after {
-            content: '';
-            position: absolute;
-            border-radius: 50%;
-            background: linear-gradient(45deg, rgba(255, 255, 255, 0.15), transparent);
-            z-index: 1;
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
         }
-        body::before { width: 400px; height: 400px; top: -10%; left: -10%; }
-        body::after { width: 300px; height: 300px; bottom: -5%; right: -5%; }
-
-        .cbt-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 480px;
-            padding: 40px 35px;
-            z-index: 2;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            display: block;
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
-
-        .cbt-header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
-
-        .cbt-header .subtitle-top { font-size: 16px; text-transform: uppercase; letter-spacing: 3px; color: #555; font-weight: 600; }
-        .cbt-header .title-main { font-size: 38px; font-weight: 900; background: linear-gradient(135deg, #f12711 0%, #f5af19 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; margin: 4px 0; }
-        .cbt-header .school-name { font-size: 20px; font-weight: 800; color: #1e3c72; }
-        .cbt-header .region-name { font-size: 13px; font-weight: 700; color: #777; letter-spacing: 4px; text-transform: uppercase; border-bottom: 2px solid #f5af19; display: inline-block; padding-bottom: 8px; width: 80%; }
-        .cbt-header .instruction { font-size: 13px; color: #666; margin-top: 15px; }
-
-        .form-group { margin-bottom: 22px; }
-        .form-group label { display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 700; font-size: 13px; text-transform: uppercase; }
-        .form-control { width: 100%; padding: 14px 16px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 15px; background-color: #f8fafc; transition: all 0.3s; }
-        .form-control:focus { outline: none; border-color: #2a5298; background-color: #ffffff; box-shadow: 0 0 0 4px rgba(42, 82, 152, 0.15); }
-
-        select.form-control {
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2.5'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat; background-position: right 16px center; background-size: 14px;
-        }
-
-        .btn-mulai, .btn-submit { width: 100%; padding: 16px; border: none; border-radius: 10px; color: white; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s; }
-        .btn-mulai { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); box-shadow: 0 4px 12px rgba(42, 82, 152, 0.3); }
-        .btn-mulai:hover { transform: translateY(-2px); }
-
-        /* SOAL CONTAINER */
-        .soal-container { max-width: 850px; width: 100%; background-color: #ffffff; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 2; display: none; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .soal-container h1 { color: #1a365d; text-align: center; border-bottom: 3px solid #2b6cb0; padding-bottom: 15px; margin-bottom: 30px; font-size: 22pt; }
-        .soal-container h2 { color: #2b6cb0; font-size: 14pt; margin-top: 40px; border-left: 5px solid #2b6cb0; padding-left: 12px; margin-bottom: 15px; }
-        .instruction { font-style: italic; color: #4a5568; margin-bottom: 20px; background-color: #edf2f7; padding: 12px 15px; border-radius: 6px; }
-        
-        table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
-        th, td { border: 1px solid #cbd5e0; padding: 14px; text-align: left; }
-        th { background-color: #ebf8ff; color: #2b6cb0; }
-        
-        .question-block { margin-bottom: 35px; padding-bottom: 25px; border-bottom: 1px dashed #cbd5e0; }
-        .option-item { margin: 12px 0; padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 8px; background-color: #f8fafc; transition: all 0.2s; }
-        .option-item:hover { background-color: #ebf8ff; }
-        label { cursor: pointer; display: flex; align-items: center; width: 100%; font-size: 11.5pt; }
-        input[type="radio"], input[type="checkbox"] { margin-right: 12px; transform: scale(1.25); }
-        .soal-container select { padding: 10px; border-radius: 6px; border: 1px solid #cbd5e0; width: 100%; background-color: #fff; }
-        
-        .btn-submit { background: linear-gradient(135deg, #2b6cb0 0%, #1a365d 100%); box-shadow: 0 4px 12px rgba(43, 108, 176, 0.3); margin-top: 40px; }
-        .btn-submit:disabled { background: #cbd5e0; cursor: not-allowed; box-shadow: none; }
-
-        /* SCORE BANNER */
-        .score-box { display: none; text-align: center; background: #f0fff4; border: 2px solid #38a169; padding: 30px; border-radius: 12px; margin-bottom: 30px; animation: fadeIn 0.5s; }
-        .score-box h3 { color: #276749; font-size: 20pt; margin-bottom: 10px; }
-        .score-box .num { font-size: 48pt; font-weight: 900; color: #38a169; }
     </style>
 </head>
-<body>
+<body class="bg-gradient-to-br from-school-deep via-school-bright to-slate-900 min-h-screen text-slate-800 flex flex-col justify-between font-sans antialiased">
 
-<div class="cbt-container" id="loginPage">
-    <div class="cbt-header">
-        <div class="subtitle-top">Selamat Datang</div>
-        <div class="title-main">SAHABAT</div>
-        <div class="school-name">SDN GONDANG 1</div>
-        <div class="region-name">Kabupaten Sragen</div>
-        <p class="instruction">Silakan lengkapi identitas Anda untuk memulai aplikasi CBT.</p>
-    </div>
-
-    <form onsubmit="mulaiUjian(event)">
-        <div class="form-group"><label>Nama Lengkap</label><input type="text" id="nama" class="form-control" placeholder="Masukkan nama lengkap" required></div>
-        <div class="form-group"><label>Kelas</label><select id="kelas" class="form-control" required><option value="" disabled selected>Pilih kelas</option><option value="6A">6A</option><option value="6B">6B</option></select></div>
-        <div class="form-group"><label>No. Absen</label><input type="number" id="absen" class="form-control" placeholder="Contoh: 05" min="1" max="50" required></div>
-        <div class="form-group"><label>Mata Pelajaran</label><select id="mapel" class="form-control" required>
-            <option value="" disabled selected>Pilih mata pelajaran</option>
-            <option value="Pendidikan Pancasila">Pendidikan Pancasila</option>
-            <option value="Bahasa Indonesia">Bahasa Indonesia</option>
-            <option value="Matematika">Matematika</option>
-            <option value="Ilmu Pengetahuan Alam dan Sosial (IPAS)">Ilmu Pengetahuan Alam dan Sosial (IPAS)</option>
-            <option value="Pendidikan Agama dan Budi Pekerti">Pendidikan Agama dan Budi Pekerti</option>
-            <option value="Pendidikan Jasmani, Olahraga, dan Kesehatan (PJOK)">Pendidikan Jasmani, Olahraga, dan Kesehatan (PJOK)</option>
-            <option value="Seni dan Budaya">Seni dan Budaya</option>
-            <option value="Bahasa Inggris">Bahasa Inggris</option>
-            <option value="Bahasa Jawa">Bahasa Jawa</option>
-        </select></div>
-        <div class="form-group"><label>Bab / Materi Ujian</label><input type="text" id="bab" class="form-control" placeholder="Ketik nama bab" required></div>
-        <button type="submit" class="btn-mulai">Mulai Ujian</button>
-    </form>
-</div>
-
-<div class="soal-container" id="soalPage">
-    <div class="score-box" id="scoreBox">
-        <h3>Ujian Selesai! Nilai Anda:</h3>
-        <div class="num" id="scoreNum">0</div>
-        <p style="color: #4a5568; margin-top: 10px;">Jawaban Anda telah berhasil disimpan ke sistem rekapitulasi.</p>
-    </div>
-
-    <h1 id="judulSoalDinamis">Ujian CBT</h1>
-
-    <form id="cbtForm" onsubmit="kirimJawaban(event)">
-        <h2>Bagian 1: Soal Menjodohkan (Matching)</h2>
-        <div class="instruction">Petunjuk: Pasangkan lajur kiri dengan opsi lajur kanan yang tepat!</div>
-        <table>
-            <thead><tr><th>Lajur Kiri (Penjelasan)</th><th>Pilihan Jawaban (Lajur Kanan)</th></tr></thead>
-            <tbody>
-                <tr><td>1. Hormon utama yang memicu perkembangan reproduksi pada laki-laki.</td><td><select name="match1" required><option value="">-- Pilih --</option><option value="A">A. Estrogen</option><option value="B">B. Primer</option><option value="C">C. Sekunder Laki-laki</option><option value="D">D. Testosteron</option></select></td></tr>
-                <tr><td>2. Perubahan organ reproduksi yang tidak terlihat langsung dari luar.</td><td><select name="match2" required><option value="">-- Pilih --</option><option value="A">A. Estrogen</option><option value="B">B. Primer</option><option value="C">C. Sekunder Laki-laki</option><option value="D">D. Testosteron</option></select></td></tr>
-                <tr><td>3. Jakun membesar dan suara menjadi lebih berat/dalam.</td><td><select name="match3" required><option value="">-- Pilih --</option><option value="A">A. Estrogen</option><option value="B">B. Primer</option><option value="C">C. Sekunder Laki-laki</option><option value="D">D. Testosteron</option></select></td></tr>
-                <tr><td>4. Hormon utama yang memicu perkembangan reproduksi pada perempuan.</td><td><select name="match4" required><option value="">-- Pilih --</option><option value="A">A. Estrogen</option><option value="B">B. Primer</option><option value="C">C. Sekunder Laki-laki</option><option value="D">D. Testosteron</option></select></td></tr>
-            </tbody>
-        </table>
-
-        <h2>Bagian 2: Soal Pilihan Ganda Kompleks</h2>
-        <div class="instruction">Petunjuk: Centang semua jawaban yang benar (bisa lebih dari satu)!</div>
-        <div class="question-block">
-            <p><strong>5. Manakah ciri fisik sekunder anak laki-laki saat pubertas? (Pilih 2 jawaban benar)</strong></p>
-            <div class="option-item"><label><input type="checkbox" name="q5" value="A"> Pinggul melebar</label></div>
-            <div class="option-item"><label><input type="checkbox" name="q5" value="B"> Tumbuh jakun di leher</label></div>
-            <div class="option-item"><label><input type="checkbox" name="q5" value="C"> Dada menjadi lebih bidang</label></div>
+    <!-- Header / Nav Utama (Terlihat setelah login) -->
+    <header id="appHeader" class="hidden bg-white/95 backdrop-blur shadow-md sticky top-0 z-40 transition-all duration-300">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white p-1 rounded-lg shadow-sm border border-slate-100 flex items-center justify-center w-10 h-10">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiUAgnz3M-C0b4aP4NCccOVpRTBjimetBgZhyphenhyphenkGcMIcG3YY7RhacnjOZFFonylLQGbQ0LQHR7n4cOk7XN8mDb9YmRrXgJi5q7yZCEEKpQ4CYuB9WaZLCNw35_qVPvcRTizOMvZXsYVqmAOSfxDv9bUmpB9z_-2G3ecR_C1CONgsQ5-5U5NA2B9rpU4zfJnZ/w200-h200/sdn%20gng%201.png" alt="Logo SDN Gondang 1 Sragen" class="w-8 h-8 object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1e3c72/ffffff?text=SDN';">
+                </div>
+                <div>
+                    <h1 class="text-sm md:text-base font-bold text-school-deep leading-tight">SDN GONDANG 1 SRAGEN</h1>
+                    <p class="text-xs text-slate-500 font-semibold tracking-wider">CBT SAHABAT</p>
+                </div>
+            </div>
+            
+            <!-- Timer & Indikator -->
+            <div class="flex items-center space-x-4">
+                <div class="bg-amber-50 border border-amber-200 text-amber-700 px-3 py-1.5 rounded-full flex items-center space-x-2 text-xs md:text-sm font-bold shadow-sm animate-pulse">
+                    <i class="fa-regular fa-clock"></i>
+                    <span id="timerText">Sisa Waktu: 30:00</span>
+                </div>
+            </div>
         </div>
-
-        <h2>Bagian 3: Soal Pilihan Ganda Biasa</h2>
-        <div class="instruction">Petunjuk: Pilihlah satu jawaban yang paling tepat!</div>
-        <div class="question-block">
-            <p><strong>6. Masa peralihan dari anak-anak menuju dewasa disebut masa...</strong></p>
-            <div class="option-item"><label><input type="radio" name="q6" value="A" required> A. Balita</label></div>
-            <div class="option-item"><label><input type="radio" name="q6" value="B"> B. Lansia</label></div>
-            <div class="option-item"><label><input type="radio" name="q6" value="C"> C. Pubertas</label></div>
+        <!-- Progress Bar Ujian -->
+        <div class="w-full bg-slate-100 h-1.5">
+            <div id="progressBar" class="bg-gradient-to-r from-school-gold to-amber-500 h-1.5 w-0 transition-all duration-500"></div>
         </div>
+    </header>
 
-        <button type="submit" class="btn-submit" id="btnKirim">Kirim Jawaban</button>
-    </form>
-</div>
-
-<script>
-    // Taruh URL Google Apps Script Web App Anda di bawah ini
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz-lDH8EMAc0FXs8qPVbst4zzjkduRv9FU-htxr4F8q3Nz1z8jbmvhJ49rSb5tSXzQb/exec";
-
-    let siswaData = {};
-
-    function mulaiUjian(event) {
-        event.preventDefault();
-        siswaData = {
-            nama: document.getElementById('nama').value,
-            kelas: document.getElementById('kelas').value,
-            mapel: document.getElementById('mapel').value,
-            bab: document.getElementById('bab').value,
-            absen: document.getElementById('absen').value
-        };
+    <main class="flex-grow flex items-center justify-center p-4 md:p-8">
         
-        document.getElementById('judulSoalDinamis').innerHTML = `Ujian CBT ${siswaData.mapel}<br>Materi: ${siswaData.bab}`;
-        document.getElementById('loginPage').style.display = 'none';
-        document.getElementById('soalPage').style.display = 'block';
-        window.scrollTo(0, 0);
-    }
+        <!-- CARD 1: HALAMAN LOGIN / IDENTITAS -->
+        <div id="loginPage" class="w-full max-w-lg bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 p-6 md:p-10 transition-all duration-300 transform hover:scale-[1.01]">
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-24 h-24 bg-white rounded-full shadow-lg mb-4 p-2 border-2 border-school-gold">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiUAgnz3M-C0b4aP4NCccOVpRTBjimetBgZhyphenhyphenkGcMIcG3YY7RhacnjOZFFonylLQGbQ0LQHR7n4cOk7XN8mDb9YmRrXgJi5q7yZCEEKpQ4CYuB9WaZLCNw35_qVPvcRTizOMvZXsYVqmAOSfxDv9bUmpB9z_-2G3ecR_C1CONgsQ5-5U5NA2B9rpU4zfJnZ/w200-h200/sdn%20gng%201.png" alt="Logo SDN Gondang 1 Sragen" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/200x200/1e3c72/ffffff?text=SDN+1';">
+                </div>
+                <p class="text-xs uppercase tracking-widest text-slate-500 font-bold">Selamat Datang di Portal</p>
+                <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-school-deep to-school-bright mt-1">CBT SAHABAT</h2>
+                <p class="text-lg font-bold text-slate-700">SDN GONDANG 1</p>
+                <div class="h-1 w-24 bg-school-gold mx-auto mt-2 rounded-full"></div>
+                <p class="text-xs text-slate-400 mt-3 font-semibold tracking-wider">KABUPATEN SRAGEN</p>
+            </div>
 
-    function hitungNilai() {
-        let skor = 0;
-        const totalSoal = 6; // Jumlah poin komponen penilaian
+            <form onsubmit="mulaiUjian(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Nama Lengkap</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                        <input type="text" id="nama" class="w-full pl-10 pr-4 py-3 rounded-xl border-2 border-slate-200 focus:outline-none focus:border-school-bright focus:ring-4 focus:ring-school-bright/10 bg-slate-50/50 transition-all font-semibold" placeholder="Masukkan nama lengkap Anda" required>
+                    </div>
+                </div>
 
-        // Kunci Jawaban
-        if(document.getElementsByName('match1')[0].value === "D") skor++;
-        if(document.getElementsByName('match2')[0].value === "B") skor++;
-        if(document.getElementsByName('match3')[0].value === "C") skor++;
-        if(document.getElementsByName('match4')[0].value === "A") skor++;
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Kelas</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                                <i class="fa-solid fa-users"></i>
+                            </span>
+                            <select id="kelas" class="w-full pl-10 pr-4 py-3 rounded-xl border-2 border-slate-200 focus:outline-none focus:border-school-bright focus:ring-4 focus:ring-school-bright/10 bg-slate-50/50 transition-all font-semibold appearance-none" required>
+                                <option value="" disabled selected>Pilih kelas</option>
+                                <option value="6A">6A</option>
+                                <option value="6B">6B</option>
+                            </select>
+                            <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
+                                <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </span>
+                        </div>
+                    </div>
 
-        // Cek Pilihan Ganda Kompleks (Soal 5: B & C Benar, A Salah)
-        const q5Options = document.getElementsByName('q5');
-        if(!q5Options[0].checked && q5Options[1].checked && q5Options[2].checked) skor++;
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">No. Absen</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                                <i class="fa-solid fa-list-ol"></i>
+                            </span>
+                            <input type="number" id="absen" class="w-full pl-10 pr-4 py-3 rounded-xl border-2 border-slate-200 focus:outline-none focus:border-school-bright focus:ring-4 focus:ring-school-bright/10 bg-slate-50/50 transition-all font-semibold" placeholder="Contoh: 05" min="1" max="50" required>
+                        </div>
+                    </div>
+                </div>
 
-        // Cek Pilihan Ganda Biasa (Soal 6: C Benar)
-        const q6Options = document.getElementsByName('q6');
-        if(q6Options[2].checked) skor++;
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Mata Pelajaran</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                            <i class="fa-solid fa-book"></i>
+                        </span>
+                        <select id="mapel" class="w-full pl-10 pr-10 py-3 rounded-xl border-2 border-slate-200 focus:outline-none focus:border-school-bright focus:ring-4 focus:ring-school-bright/10 bg-slate-50/50 transition-all font-semibold appearance-none" required>
+                            <option value="" disabled selected>Pilih mata pelajaran</option>
+                            <option value="Pendidikan Pancasila">Pendidikan Pancasila</option>
+                            <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+                            <option value="Matematika">Matematika</option>
+                            <option value="Ilmu Pengetahuan Alam dan Sosial (IPAS)">Ilmu Pengetahuan Alam dan Sosial (IPAS)</option>
+                            <option value="Pendidikan Agama dan Budi Pekerti">Pendidikan Agama dan Budi Pekerti</option>
+                            <option value="Pendidikan Jasmani, Olahraga, dan Kesehatan (PJOK)">Pendidikan Jasmani, Olahraga, dan Kesehatan (PJOK)</option>
+                            <option value="Seni dan Budaya">Seni dan Budaya</option>
+                            <option value="Bahasa Inggris">Bahasa Inggris</option>
+                            <option value="Bahasa Jawa">Bahasa Jawa</option>
+                        </select>
+                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </span>
+                    </div>
+                </div>
 
-        // Konversi ke skala nilai 100
-        return Math.round((skor / totalSoal) * 100);
-    }
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Bab / Materi Ujian</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                            <i class="fa-solid fa-bookmark"></i>
+                        </span>
+                        <input type="text" id="bab" class="w-full pl-10 pr-4 py-3 rounded-xl border-2 border-slate-200 focus:outline-none focus:border-school-bright focus:ring-4 focus:ring-school-bright/10 bg-slate-50/50 transition-all font-semibold" placeholder="Ketik nama bab (Contoh: Bab 1 Pubertas)" required>
+                    </div>
+                </div>
 
-    function kirimJawaban(event) {
-        event.preventDefault();
-        const btn = document.getElementById('btnKirim');
-        btn.disabled = true;
-        btn.innerHTML = "Mengirim...";
+                <div class="pt-2">
+                    <button type="submit" class="w-full py-4 bg-gradient-to-r from-school-deep to-school-bright text-white font-extrabold text-sm uppercase tracking-wider rounded-xl shadow-lg hover:shadow-xl hover:from-school-bright hover:to-school-deep transform active:scale-[0.98] transition-all flex items-center justify-center space-x-2">
+                        <span>Mulai Ujian</span>
+                        <i class="fa-solid fa-play"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
 
-        const nilaiAkhir = hitungNilai();
-        siswaData.nilai = nilaiAkhir;
+        <!-- CARD 2: HALAMAN SOAL (CONTAINER UTAMA) -->
+        <div id="soalPage" class="hidden w-full max-w-4xl bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden transition-all duration-500">
+            
+            <!-- Profil Siswa di Atas Lembar Ujian -->
+            <div class="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200 p-4 md:p-6 flex flex-wrap md:flex-nowrap items-center justify-between gap-4">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-school-deep text-white rounded-full flex items-center justify-center text-lg font-bold shadow-inner">
+                        <span id="initialName">S</span>
+                    </div>
+                    <div>
+                        <h4 id="studentNameDisplay" class="font-bold text-slate-800 text-base">Nama Siswa</h4>
+                        <p class="text-xs text-slate-500 font-semibold">
+                            Kelas <span id="studentClassDisplay" class="text-school-bright">-</span> | No. Absen <span id="studentAbsenDisplay" class="text-school-bright">-</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span class="text-xs font-bold text-slate-400 block uppercase tracking-wider">Ujian Aktif</span>
+                    <h3 id="judulSoalDinamis" class="font-bold text-school-deep text-sm md:text-base">Mata Pelajaran</h3>
+                </div>
+            </div>
 
-        // Tampilkan nilai langsung ke layar siswa
-        document.getElementById('scoreNum').innerText = nilaiAkhir;
-        document.getElementById('scoreBox').style.display = 'block';
-        window.scrollTo(0,0);
+            <!-- Box Hasil / Score Box (Tampil setelah Kirim) -->
+            <div id="scoreBox" class="hidden p-6 bg-emerald-50 border-b-2 border-emerald-200 text-center animate-fade-in">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full mb-3 text-3xl">
+                    <i class="fa-solid fa-square-check"></i>
+                </div>
+                <h3 class="text-xl font-black text-emerald-800">Ujian Selesai Dikerjakan!</h3>
+                <p class="text-sm text-slate-600 max-w-md mx-auto mt-1">Jawaban Anda sudah terekam di pangkalan data kelas. Berikut adalah perolehan nilai Anda:</p>
+                
+                <div class="my-4 inline-block bg-white border-2 border-emerald-300 rounded-2xl px-8 py-4 shadow-sm">
+                    <p class="text-xs font-bold uppercase tracking-widest text-slate-400">Skor Akhir</p>
+                    <div class="text-5xl font-black text-emerald-600 mt-1" id="scoreNum">0</div>
+                </div>
 
-        // Kirim data ke Google Sheets menggunakan API fetch (POST)
-        fetch(WEB_APP_URL, {
-            method: "POST",
-            mode: "no-cors", // Menghindari isu lintas domain (CORS) di browser sekolah
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(siswaData)
-        })
-        .then(() => {
-            alert('Sukses! Jawaban Anda telah direkam di spreadsheet kelas.');
-            btn.innerHTML = "Selesai Terkirim";
-        })
-        .catch(err => {
-            alert('Gagal mengirim ke spreadsheet otomatis, silakan hubungi pengawas.');
-            console.error(err);
-            btn.disabled = false;
-            btn.innerHTML = "Kirim Ulang";
-        });
-    }
-</script>
+                <div id="rekapJawaban" class="mt-4 max-w-lg mx-auto text-left bg-white p-4 rounded-xl border border-slate-200">
+                    <h4 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1"><i class="fa-solid fa-circle-info text-slate-400 mr-1"></i> Detail Hasil Jawaban:</h4>
+                    <ul class="text-xs space-y-1.5 text-slate-600" id="detailList">
+                        <!-- Diisi via JS -->
+                    </ul>
+                </div>
+            </div>
 
+            <!-- Form Soal -->
+            <form id="cbtForm" onsubmit="kirimJawaban(event)" class="p-6 md:p-10 space-y-8">
+                
+                <!-- BAGIAN 1: MENJODOHKAN -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2 pb-2 border-b border-slate-100">
+                        <span class="w-8 h-8 bg-amber-100 text-amber-700 rounded-lg flex items-center justify-center font-bold text-sm">I</span>
+                        <h3 class="font-extrabold text-lg text-slate-800">Bagian 1: Soal Menjodohkan (Matching)</h3>
+                    </div>
+                    <p class="text-xs text-slate-500 font-medium bg-slate-50 border-l-4 border-amber-500 p-3 rounded-r-lg">
+                        <i class="fa-solid fa-circle-info text-amber-500 mr-1"></i> Petunjuk: Pasangkan pernyataan lajur kiri dengan pilihan jawaban di lajur kanan secara tepat!
+                    </p>
+
+                    <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
+                        <table class="w-full text-sm text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-slate-200 text-slate-700">
+                                    <th class="p-4 font-bold max-w-xs">Lajur Kiri (Penjelasan / Ciri)</th>
+                                    <th class="p-4 font-bold text-center w-56">Pilihan Jawaban (Lajur Kanan)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <!-- Match 1 -->
+                                <tr class="hover:bg-slate-50/50 transition">
+                                    <td class="p-4 text-slate-700 font-semibold">1. Hormon utama yang memicu perkembangan reproduksi pada laki-laki.</td>
+                                    <td class="p-4">
+                                        <div class="relative">
+                                            <select name="match1" onchange="updateProgress()" class="match-select w-full p-2.5 text-xs bg-white border border-slate-300 rounded-lg font-bold focus:outline-none focus:border-school-bright focus:ring-2 focus:ring-school-bright/10 cursor-pointer appearance-none" required>
+                                                <option value="">-- Pilih Jawaban --</option>
+                                                <option value="A">A. Estrogen</option>
+                                                <option value="B">B. Primer</option>
+                                                <option value="C">C. Sekunder Laki-laki</option>
+                                                <option value="D">D. Testosteron</option>
+                                            </select>
+                                            <div class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none text-slate-400 text-2xs">
+                                                <i class="fa-solid fa-chevron-down text-2xs"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Match 2 -->
+                                <tr class="hover:bg-slate-50/50 transition">
+                                    <td class="p-4 text-slate-700 font-semibold">2. Perubahan organ reproduksi yang tidak terlihat langsung dari luar (kematangan organ dalam).</td>
+                                    <td class="p-4">
+                                        <div class="relative">
+                                            <select name="match2" onchange="updateProgress()" class="match-select w-full p-2.5 text-xs bg-white border border-slate-300 rounded-lg font-bold focus:outline-none focus:border-school-bright focus:ring-2 focus:ring-school-bright/10 cursor-pointer appearance-none" required>
+                                                <option value="">-- Pilih Jawaban --</option>
+                                                <option value="A">A. Estrogen</option>
+                                                <option value="B">B. Primer</option>
+                                                <option value="C">C. Sekunder Laki-laki</option>
+                                                <option value="D">D. Testosteron</option>
+                                            </select>
+                                            <div class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none text-slate-400">
+                                                <i class="fa-solid fa-chevron-down text-2xs"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Match 3 -->
+                                <tr class="hover:bg-slate-50/50 transition">
+                                    <td class="p-4 text-slate-700 font-semibold">3. Jakun membesar dan suara menjadi lebih berat/dalam.</td>
+                                    <td class="p-4">
+                                        <div class="relative">
+                                            <select name="match3" onchange="updateProgress()" class="match-select w-full p-2.5 text-xs bg-white border border-slate-300 rounded-lg font-bold focus:outline-none focus:border-school-bright focus:ring-2 focus:ring-school-bright/10 cursor-pointer appearance-none" required>
+                                                <option value="">-- Pilih Jawaban --</option>
+                                                <option value="A">A. Estrogen</option>
+                                                <option value="B">B. Primer</option>
+                                                <option value="C">C. Sekunder Laki-laki</option>
+                                                <option value="D">D. Testosteron</option>
+                                            </select>
+                                            <div class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none text-slate-400">
+                                                <i class="fa-solid fa-chevron-down text-2xs"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Match 4 -->
+                                <tr class="hover:bg-slate-50/50 transition">
+                                    <td class="p-4 text-slate-700 font-semibold">4. Hormon utama yang memicu perkembangan reproduksi pada perempuan.</td>
+                                    <td class="p-4">
+                                        <div class="relative">
+                                            <select name="match4" onchange="updateProgress()" class="match-select w-full p-2.5 text-xs bg-white border border-slate-300 rounded-lg font-bold focus:outline-none focus:border-school-bright focus:ring-2 focus:ring-school-bright/10 cursor-pointer appearance-none" required>
+                                                <option value="">-- Pilih Jawaban --</option>
+                                                <option value="A">A. Estrogen</option>
+                                                <option value="B">B. Primer</option>
+                                                <option value="C">C. Sekunder Laki-laki</option>
+                                                <option value="D">D. Testosteron</option>
+                                            </select>
+                                            <div class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none text-slate-400">
+                                                <i class="fa-solid fa-chevron-down text-2xs"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- BAGIAN 2: PILIHAN GANDA KOMPLEKS -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2 pb-2 border-b border-slate-100">
+                        <span class="w-8 h-8 bg-sky-100 text-sky-700 rounded-lg flex items-center justify-center font-bold text-sm">II</span>
+                        <h3 class="font-extrabold text-lg text-slate-800">Bagian 2: Soal Pilihan Ganda Kompleks</h3>
+                    </div>
+                    <p class="text-xs text-slate-500 font-medium bg-slate-50 border-l-4 border-sky-500 p-3 rounded-r-lg">
+                        <i class="fa-solid fa-circle-info text-sky-500 mr-1"></i> Petunjuk: Centang semua jawaban yang benar (bisa lebih dari satu)!
+                    </p>
+
+                    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
+                        <p class="font-bold text-slate-800 text-sm md:text-base leading-relaxed">
+                            5. Manakah ciri fisik sekunder anak laki-laki saat pubertas? (Pilih 2 jawaban benar)
+                        </p>
+                        
+                        <div class="grid gap-2.5 mt-3">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:border-sky-500 hover:bg-sky-50/40 cursor-pointer transition">
+                                <input type="checkbox" name="q5" value="A" onchange="updateProgress()" class="w-5 h-5 text-sky-600 rounded border-slate-300 focus:ring-sky-500 mr-3">
+                                <span class="text-sm font-semibold text-slate-700">A. Pinggul melebar</span>
+                            </label>
+
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:border-sky-500 hover:bg-sky-50/40 cursor-pointer transition">
+                                <input type="checkbox" name="q5" value="B" onchange="updateProgress()" class="w-5 h-5 text-sky-600 rounded border-slate-300 focus:ring-sky-500 mr-3">
+                                <span class="text-sm font-semibold text-slate-700">B. Tumbuh jakun di leher</span>
+                            </label>
+
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:border-sky-500 hover:bg-sky-50/40 cursor-pointer transition">
+                                <input type="checkbox" name="q5" value="C" onchange="updateProgress()" class="w-5 h-5 text-sky-600 rounded border-slate-300 focus:ring-sky-500 mr-3">
+                                <span class="text-sm font-semibold text-slate-700">C. Dada menjadi lebih bidang</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BAGIAN 3: PILIHAN GANDA BIASA -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2 pb-2 border-b border-slate-100">
+                        <span class="w-8 h-8 bg-indigo-100 text-indigo-700 rounded-lg flex items-center justify-center font-bold text-sm">III</span>
+                        <h3 class="font-extrabold text-lg text-slate-800">Bagian 3: Soal Pilihan Ganda Biasa</h3>
+                    </div>
+                    <p class="text-xs text-slate-500 font-medium bg-slate-50 border-l-4 border-indigo-500 p-3 rounded-r-lg">
+                        <i class="fa-solid fa-circle-info text-indigo-500 mr-1"></i> Petunjuk: Pilihlah satu jawaban yang paling tepat!
+                    </p>
+
+                    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
+                        <p class="font-bold text-slate-800 text-sm md:text-base leading-relaxed">
+                            6. Masa peralihan dari anak-anak menuju dewasa disebut masa...
+                        </p>
+                        
+                        <div class="grid gap-2.5 mt-3">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/40 cursor-pointer transition">
+                                <input type="radio" name="q6" value="A" onchange="updateProgress()" class="w-5 h-5 text-indigo-600 border-slate-300 focus:ring-indigo-500 mr-3" required>
+                                <span class="text-sm font-semibold text-slate-700">A. Balita</span>
+                            </label>
+
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/40 cursor-pointer transition">
+                                <input type="radio" name="q6" value="B" onchange="updateProgress()" class="w-5 h-5 text-indigo-600 border-slate-300 focus:ring-indigo-500 mr-3">
+                                <span class="text-sm font-semibold text-slate-700">B. Lansia</span>
+                            </label>
+
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/40 cursor-pointer transition">
+                                <input type="radio" name="q6" value="C" onchange="updateProgress()" class="w-5 h-5 text-indigo-600 border-slate-300 focus:ring-indigo-500 mr-3">
+                                <span class="text-sm font-semibold text-slate-700">C. Pubertas</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Ujian & Kirim Button -->
+                <div class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <p class="text-xs text-slate-500 font-semibold" id="unansweredText">Menunggu pengisian soal...</p>
+                    <button type="submit" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-extrabold text-sm uppercase tracking-wider rounded-xl shadow-lg hover:shadow-xl hover:from-teal-600 hover:to-emerald-600 transform active:scale-[0.98] transition-all flex items-center justify-center space-x-2" id="btnKirim">
+                        <span>Kirim Jawaban</span>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer Copyright -->
+    <footer class="text-center py-4 text-white/50 text-xs font-semibold tracking-wider">
+        <p>&copy; 2026 SDN Gondang 1 Sragen. All Rights Reserved. Smart CBT System.</p>
+    </footer>
+
+    <!-- MODAL CUSTOM UNTUK PENGGANTI ALERT() -->
+    <div id="customModal" class="hidden fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 transform scale-95 transition-all" id="modalCard">
+            <div class="text-center">
+                <div class="w-14 h-14 rounded-full mx-auto flex items-center justify-center text-2xl mb-4" id="modalIcon">
+                    <!-- Icon disuntik JS -->
+                </div>
+                <h3 class="text-lg font-bold text-slate-800" id="modalTitle">Judul Modal</h3>
+                <p class="text-sm text-slate-500 mt-2" id="modalBody">Keterangan isi pesan modal disini.</p>
+                <div class="mt-6 flex space-x-3" id="modalActionContainer">
+                    <button onclick="closeModal()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-bold transition">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT UTAMA -->
+    <script>
+        // Taruh URL Google Apps Script Web App Anda di bawah ini
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz-lDH8EMAc0FXs8qPVbst4zzjkduRv9FU-htxr4F8q3Nz1z8jbmvhJ49rSb5tSXzQb/exec";
+
+        let siswaData = {};
+        let totalWaktuDetik = 30 * 60; // 30 Menit
+        let intervalTimer;
+
+        // Tampilkan custom modal
+        function showModal(title, message, type = 'info', confirmCallback = null) {
+            const modal = document.getElementById('customModal');
+            const card = document.getElementById('modalCard');
+            const iconDiv = document.getElementById('modalIcon');
+            const titleEl = document.getElementById('modalTitle');
+            const bodyEl = document.getElementById('modalBody');
+            const actionContainer = document.getElementById('modalActionContainer');
+
+            // Setup Style Tipe Modal
+            if (type === 'success') {
+                iconDiv.className = "w-14 h-14 rounded-full mx-auto flex items-center justify-center text-2xl mb-4 bg-emerald-100 text-emerald-600";
+                iconDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+            } else if (type === 'error') {
+                iconDiv.className = "w-14 h-14 rounded-full mx-auto flex items-center justify-center text-2xl mb-4 bg-rose-100 text-rose-600";
+                iconDiv.innerHTML = '<i class="fa-solid fa-circle-xmark"></i>';
+            } else if (type === 'warning') {
+                iconDiv.className = "w-14 h-14 rounded-full mx-auto flex items-center justify-center text-2xl mb-4 bg-amber-100 text-amber-600";
+                iconDiv.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i>';
+            } else {
+                iconDiv.className = "w-14 h-14 rounded-full mx-auto flex items-center justify-center text-2xl mb-4 bg-blue-100 text-blue-600";
+                iconDiv.innerHTML = '<i class="fa-solid fa-circle-info"></i>';
+            }
+
+            titleEl.innerText = title;
+            bodyEl.innerText = message;
+
+            // Setup Button Action
+            actionContainer.innerHTML = '';
+            if (confirmCallback) {
+                // Button Batal
+                const btnCancel = document.createElement('button');
+                btnCancel.className = "w-1/2 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-bold transition";
+                btnCancel.innerText = "Batal";
+                btnCancel.onclick = closeModal;
+
+                // Button Konfirmasi
+                const btnConfirm = document.createElement('button');
+                btnConfirm.className = "w-1/2 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-bold shadow-md transition";
+                btnConfirm.innerText = "Ya, Kirim";
+                btnConfirm.onclick = () => {
+                    closeModal();
+                    confirmCallback();
+                };
+
+                actionContainer.appendChild(btnCancel);
+                actionContainer.appendChild(btnConfirm);
+            } else {
+                const btnClose = document.createElement('button');
+                btnClose.className = "w-full py-2.5 bg-school-deep hover:bg-school-bright text-white rounded-lg text-sm font-bold transition shadow-md";
+                btnClose.innerText = "Mengerti";
+                btnClose.onclick = closeModal;
+                actionContainer.appendChild(btnClose);
+            }
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                card.classList.remove('scale-95');
+                card.classList.add('scale-100');
+            }, 50);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('customModal');
+            const card = document.getElementById('modalCard');
+            card.classList.remove('scale-100');
+            card.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 150);
+        }
+
+        // Jalankan Timer
+        function startTimer() {
+            intervalTimer = setInterval(() => {
+                if (totalWaktuDetik <= 0) {
+                    clearInterval(intervalTimer);
+                    document.getElementById('timerText').innerText = "Waktu Habis!";
+                    showModal("Waktu Habis!", "Batas waktu pengerjaan telah selesai. Sistem akan mengirim jawaban secara otomatis.", "warning");
+                    autoSubmitUjian();
+                } else {
+                    totalWaktuDetik--;
+                    const menit = Math.floor(totalWaktuDetik / 60);
+                    const detik = totalWaktuDetik % 60;
+                    document.getElementById('timerText').innerText = `Sisa Waktu: ${String(menit).padStart(2, '0')}:${String(detik).padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        // Mulai Ujian setelah Login Identitas
+        function mulaiUjian(event) {
+            event.preventDefault();
+            siswaData = {
+                nama: document.getElementById('nama').value.trim(),
+                kelas: document.getElementById('kelas').value,
+                mapel: document.getElementById('mapel').value,
+                bab: document.getElementById('bab').value.trim(),
+                absen: document.getElementById('absen').value
+            };
+            
+            // Atur huruf pertama profil avatar siswa
+            document.getElementById('initialName').innerText = siswaData.nama.charAt(0).toUpperCase();
+            document.getElementById('studentNameDisplay').innerText = siswaData.nama;
+            document.getElementById('studentClassDisplay').innerText = siswaData.kelas;
+            document.getElementById('studentAbsenDisplay').innerText = String(siswaData.absen).padStart(2, '0');
+
+            document.getElementById('judulSoalDinamis').innerHTML = `${siswaData.mapel} <span class="hidden md:inline">|</span> <span class="block md:inline text-xs font-normal text-slate-500">${siswaData.bab}</span>`;
+            
+            // Transisi Tampilan Halaman
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('appHeader').classList.remove('hidden');
+            document.getElementById('soalPage').classList.remove('hidden');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Jalankan Timer & Hitung Progress Awal
+            startTimer();
+            updateProgress();
+        }
+
+        // Update Progress Bar & Teks Pengisian
+        function updateProgress() {
+            let totalUnsurSoal = 6; // 4 menjodohkan, 1 PG Kompleks, 1 PG Biasa
+            let diisi = 0;
+
+            // 1. Cek matching
+            for(let i=1; i<=4; i++) {
+                if(document.getElementsByName(`match${i}`)[0].value !== "") diisi++;
+            }
+
+            // 2. Cek Checkbox PG Kompleks (Setidaknya satu tercentang)
+            const q5Checked = document.querySelectorAll('input[name="q5"]:checked');
+            if(q5Checked.length > 0) diisi++;
+
+            // 3. Cek Radio PG Biasa
+            const q6Checked = document.querySelector('input[name="q6"]:checked');
+            if(q6Checked) diisi++;
+
+            // Update UI Progress Bar
+            const persentase = Math.round((diisi / totalUnsurSoal) * 100);
+            document.getElementById('progressBar').style.width = `${persentase}%`;
+
+            const unansweredText = document.getElementById('unansweredText');
+            if (persentase === 100) {
+                unansweredText.innerHTML = '<span class="text-emerald-600 font-bold"><i class="fa-solid fa-circle-check"></i> Semua soal telah dijawab!</span>';
+            } else {
+                unansweredText.innerHTML = `Kemajuan: <span class="font-bold text-school-bright">${diisi}</span> dari <span class="font-bold">${totalUnsurSoal}</span> bagian terjawab (${persentase}%)`;
+            }
+        }
+
+        // Kalkulasi Skor dan Analisis Jawaban
+        function hitungNilai() {
+            let skor = 0;
+            const detailHtml = [];
+
+            // Kunci Jawaban Soal Menjodohkan
+            const m1 = document.getElementsByName('match1')[0].value;
+            const m2 = document.getElementsByName('match2')[0].value;
+            const m3 = document.getElementsByName('match3')[0].value;
+            const m4 = document.getElementsByName('match4')[0].value;
+
+            if(m1 === "D") { skor++; detailHtml.push('<li><i class="fa-solid fa-check text-emerald-500 mr-1.5"></i>Menjodohkan 1: <strong class="text-emerald-600">Benar</strong> (Testosteron)</li>'); }
+            else { detailHtml.push('<li><i class="fa-solid fa-xmark text-rose-500 mr-1.5"></i>Menjodohkan 1: <strong class="text-rose-600">Salah</strong> (Kunci: Testosteron)</li>'); }
+
+            if(m2 === "B") { skor++; detailHtml.push('<li><i class="fa-solid fa-check text-emerald-500 mr-1.5"></i>Menjodohkan 2: <strong class="text-emerald-600">Benar</strong> (Primer)</li>'); }
+            else { detailHtml.push('<li><i class="fa-solid fa-xmark text-rose-500 mr-1.5"></i>Menjodohkan 2: <strong class="text-rose-600">Salah</strong> (Kunci: Primer)</li>'); }
+
+            if(m3 === "C") { skor++; detailHtml.push('<li><i class="fa-solid fa-check text-emerald-500 mr-1.5"></i>Menjodohkan 3: <strong class="text-emerald-600">Benar</strong> (Sekunder Laki-laki)</li>'); }
+            else { detailHtml.push('<li><i class="fa-solid fa-xmark text-rose-500 mr-1.5"></i>Menjodohkan 3: <strong class="text-rose-600">Salah</strong> (Kunci: Sekunder Laki-laki)</li>'); }
+
+            if(m4 === "A") { skor++; detailHtml.push('<li><i class="fa-solid fa-check text-emerald-500 mr-1.5"></i>Menjodohkan 4: <strong class="text-emerald-600">Benar</strong> (Estrogen)</li>'); }
+            else { detailHtml.push('<li><i class="fa-solid fa-xmark text-rose-500 mr-1.5"></i>Menjodohkan 4: <strong class="text-rose-600">Salah</strong> (Kunci: Estrogen)</li>'); }
+
+            // Cek Pilihan Ganda Kompleks (Soal 5: B & C Benar, A Salah)
+            const q5Options = document.getElementsByName('q5');
+            const q5A = q5Options[0].checked;
+            const q5B = q5Options[1].checked;
+            const q5C = q5Options[2].checked;
+
+            if(!q5A && q5B && q5C) {
+                skor++;
+                detailHtml.push('<li><i class="fa-solid fa-check text-emerald-500 mr-1.5"></i>Soal 5 (Kompleks): <strong class="text-emerald-600">Benar</strong> (Tumbuh jakun & Dada bidang)</li>');
+            } else {
+                detailHtml.push('<li><i class="fa-solid fa-xmark text-rose-500 mr-1.5"></i>Soal 5 (Kompleks): <strong class="text-rose-600">Salah</strong> (Kunci: B & C)</li>');
+            }
+
+            // Cek Pilihan Ganda Biasa (Soal 6: C Benar)
+            const q6Options = document.getElementsByName('q6');
+            if(q6Options[2].checked) {
+                skor++;
+                detailHtml.push('<li><i class="fa-solid fa-check text-emerald-500 mr-1.5"></i>Soal 6 (PG Biasa): <strong class="text-emerald-600">Benar</strong> (Pubertas)</li>');
+            } else {
+                detailHtml.push('<li><i class="fa-solid fa-xmark text-rose-500 mr-1.5"></i>Soal 6 (PG Biasa): <strong class="text-rose-600">Salah</strong> (Kunci: C. Pubertas)</li>');
+            }
+
+            // Tampilkan Detail
+            document.getElementById('detailList').innerHTML = detailHtml.join('');
+
+            // Konversi ke skala nilai 100
+            return {
+                nilai: Math.round((skor / 6) * 100),
+                skorPoin: skor
+            };
+        }
+
+        // Fungsi Auto-Submit jika Waktu Habis
+        function autoSubmitUjian() {
+            prosesKirim(true);
+        }
+
+        // Fungsi Tombol Kirim Utama
+        function kirimJawaban(event) {
+            event.preventDefault();
+            // Konfirmasi pengerjaan
+            showModal(
+                "Konfirmasi Selesai", 
+                "Apakah Anda yakin ingin mengirim lembar jawaban ini? Pastikan kembali semua jawaban sudah terisi dengan baik.", 
+                "warning",
+                () => { prosesKirim(false); }
+            );
+        }
+
+        // Eksekusi Pengiriman ke Spreadsheet
+        function prosesKirim(isForced = false) {
+            clearInterval(intervalTimer); // Matikan Timer
+            
+            const btn = document.getElementById('btnKirim');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i> Mengirim...';
+
+            const hasil = hitungNilai();
+            siswaData.nilai = hasil.nilai;
+
+            // Tampilkan nilai langsung ke layar siswa
+            document.getElementById('scoreNum').innerText = hasil.nilai;
+            document.getElementById('scoreBox').classList.remove('hidden');
+            
+            // Scroll halus ke atas lembar ujian
+            document.getElementById('soalPage').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Kirim data ke Google Sheets menggunakan API fetch (POST)
+            fetch(WEB_APP_URL, {
+                method: "POST",
+                mode: "no-cors", 
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(siswaData)
+            })
+            .then(() => {
+                showModal(
+                    "Jawaban Terkirim!", 
+                    `Selamat, ${siswaData.nama}! Jawaban Anda telah sukses diunggah ke lembar rekapitulasi kelas.`, 
+                    "success"
+                );
+                btn.className = "w-full sm:w-auto px-8 py-4 bg-emerald-700 text-white font-extrabold text-sm uppercase tracking-wider rounded-xl cursor-default flex items-center justify-center space-x-2";
+                btn.innerHTML = '<span>Terkirim & Selesai</span> <i class="fa-solid fa-circle-check"></i>';
+            })
+            .catch(err => {
+                showModal(
+                    "Gangguan Pengiriman", 
+                    "Gagal mengirim data otomatis ke spreadsheet server. Harap panggil atau hubungi pengawas ujian untuk dicatat manual.", 
+                    "error"
+                );
+                console.error(err);
+                btn.disabled = false;
+                btn.innerHTML = 'Kirim Ulang <i class="fa-solid fa-rotate-right ml-2"></i>';
+            });
+        }
+    </script>
 </body>
 </html>
